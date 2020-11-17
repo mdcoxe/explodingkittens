@@ -1,7 +1,22 @@
-// Cached DOM Nodes
+//================================================//
+//=============== Cached DOM Nodes ===============//
+//================================================//
 
-// - Restart the game when the user lose
 
+
+//=============Arrays===============//
+let player1Hand = [];
+let player2Hand = [];
+let deck = [];
+let discard = [];
+
+
+
+
+//================================================//
+//============Players turn function ==============//
+//================================================//
+// Whose turn is it.
 
 //================================================//
 //==========Build the ruless carousel ============//
@@ -26,13 +41,12 @@
 // - Build functions for the cards 
 // 	-  exploding kitten (endgame/choice if defuse card available) - triggers engame state
 // 	-  defuse kitten - if defuse card played add exploding kitten back into deck in random spot
-// 	-  Attack - end turn without drawing card, oppsing player takes 2 turns
+// 	-  Attack - end turn without drawing card(using skip function), opposing player takes 2 turns
 // 	-  Skip - immediately end your turn without drawing( need 2 skip cards to end attack since it's 2 turns)
 // 	-  Shuffle - Shuffle deck (reorder deck cards remaining in random order)
-// 	-  see the future - view top 3 cards in order
 
+//loop to generate cards and add to the deck
 // 	-  The Deck of cards (needs to be a button when pressed draws a card and then gives option to end turn after viewing drawn card
-
 
 
 //================================================//
@@ -57,6 +71,19 @@
 //If exploding kitten card is drawn, then pay defuse card, or game over
 //show via exploding kitten giant card with button to defuse (if in players hand) or with end game button that declares winner by moving to game over overlay
 // - Game over page overlay has restart button
+
+
+//================================================//
+//=============Buttony button=====================//
+//================================================//
+// - Restart button
+// - rules button
+// - show cards button
+// - start game button
+// - draw card - for the deck, whole deck is button
+// - play card - click any button for the 
+
+
 
 
 
