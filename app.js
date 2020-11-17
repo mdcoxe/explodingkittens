@@ -17,7 +17,15 @@ let discard = [];
 //============Players turn function ==============//
 //================================================//
 // Whose turn is it.
-
+let dontSkipTurn = true;
+let player2Turn;
+// function whosTurn() {
+//    if(skipTurn = false){
+//        player2Turn = player2Turn
+//        skipTurn = true
+//    } else {
+//        player2Turn = !player2Turn
+// }
 //================================================//
 //==========Build the ruless carousel ============//
 //================================================//
@@ -33,10 +41,35 @@ let discard = [];
 // reset deck array to []
 // call the begin game protect card overlay from CSS with start and rules button
 
+
+
+
+
 //================================================//
 //==========Build the cards and the deck==========//
 //================================================//
 // - class constructor for card generator - name and id
+class Card {
+    constructor(name, id){
+        this.name = name;
+        this.id = id;
+    }
+}
+
+const cardNames = ['Attack', 'Defuse', 'Skip', 'Shuffle'];
+const cardId = [1,2,3,4]
+const generateDeck = () => {
+        for(let n = 0; n < cardNames.length; n++) {
+            for(let i = 0; i < cardId.length; i++){
+                deck.push(new Card(cardNames[n], cardNames[n] + cardId[i]))
+            }
+        }
+}
+generateDeck();
+const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
+deck.push(explodingKitten);
+console.log(deck);
+
 // 	- append individual rules to the parent class??
 // - Build functions for the cards 
 // 	-  exploding kitten (endgame/choice if defuse card available) - triggers engame state
