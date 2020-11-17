@@ -40,7 +40,7 @@ body {
     background-color: #1b1b1b;
     border-radius: 8px;
     box-shadow: 5px 5px 20px 5px black;
-    cursor: pointer;
+    
 }
 #discard-deck{
     background-color: white;
@@ -49,6 +49,7 @@ body {
 }
 #play-deck{
     background-color: #1b1b1b;
+    cursor: pointer;
 }
 .card{
     box-shadow: 5px 5px 20px 5px black;
@@ -76,6 +77,7 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
+    
 }
 #active-cards .card{
     width: 250px;
@@ -84,6 +86,7 @@ body {
     border: 1px solid black;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    cursor: pointer;
 
 }
 
