@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico?" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <title>Exploding Kittens</title>
 </head>
 <body>
-    <h1>Hello World!!!!!!!!</h1>
+    <div class="gameboard">   
+    <div class="player-cards" id="inactive-cards">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+        <div class="decks">
+            <div class="card-deck" id="play-deck"></div>
+            <div class="card-deck" id="discard-deck"></div>
+        </div>
+        <div class="player-cards" id="active-cards">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+           
+        </div>
+    </div> 
+<div class="rules-button"></div>
+<!-- Winner Overlay -->
+    <div class="gameOver" id="gameOver">    
+        <div class="gameOver-text"></div>
+        <button class="button" id="resetButton">Reset Game</button>
+    </div>
+<!-- Swap Player Turn Overlay -->
+    <div class="new-player-turn" id="new-player-turn">    
+    <div class="New-player-turn-text"></div>
+    <button class="button" id="showButton">Show Cards</button>
+</div>
+<!-- Begin Game Overlay -->
+<div class="start-game" id="start-game">    
+    <div class="start-game-text"></div>
+    <button class="button" id="showRulesButton">The Rules</button>
+    <button class="button" id="startGameButton">Start Game</button>
+</div>
+
+
+
 
     <script src="app.js"></script>
 </body>

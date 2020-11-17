@@ -1,3 +1,194 @@
 *{
-    background-color: red;
+    background-color: #B40A1D;
 }
+@font-face {
+    font-family: 'Bebas';
+    src: url('BebasNeue-Bold.ttf');
+}
+body {
+    margin: 0;
+    text-align: center;
+    font-family: 'Bebas';
+}
+.gameBoard {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+  
+}
+.decks{
+    margin-top: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: space-around;
+}
+.card-deck{
+    width: 250px;
+    height: 350px;
+    background-color: black;
+    border-radius: 8px;
+}
+#discard-deck{
+    background-color: white;
+    border: 1px solid black;
+}
+#play-deck{
+    background-color: black;
+    border: 1px solid #B40A1D;
+}
+#inactive-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    margin: 0;
+}
+#inactive-cards .card{
+    width: 250px;
+    height: 150px;
+    background-color: black;
+    border-bottom: 1px solid #B40A1D;
+    border-left: 1px solid #B40A1D;
+    border-right: 1px solid #B40A1D;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+#active-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: flex-end;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+#active-cards .card{
+    width: 250px;
+    height: 150px;
+    background-color: white;
+    border: 1px solid black;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+}
+
+
+/* Game over man, game over */
+.gameOver{
+    display: none;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: .9;
+    color: white;
+    font-size: 5rem;
+}
+.gameOver button{
+    display: flex;
+    justify-content: center;
+    margin: 35px auto;
+    background-color: #DD8C1A;
+    color: #660D0E;
+    text-align: center;
+    padding: 5px 28px;
+    border-radius: 8px;
+    width: 17%;
+    box-shadow: 5px 5px 20px 5px rgb(80, 5, 5);
+    font-family: 'Bebas';
+    font-size: x-large;
+    cursor: pointer;
+}
+.gameOver button:hover {
+    background-color: #660D0E;
+    color: #DD8C1A;
+}
+.gameOver.show{
+    display: flex;
+}
+/* Swap turns */
+.new-player-turn{
+    display: none;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: .9;
+    color: white;
+    font-size: 5rem;
+}
+.new-player-turn button{
+    display: flex;
+    justify-content: center;
+    margin: 35px auto;
+    background-color: #DD8C1A;
+    color: #660D0E;
+    text-align: center;
+    padding: 5px 28px;
+    border-radius: 8px;
+    width: 17%;
+    box-shadow: 5px 5px 20px 5px rgb(80, 5, 5);
+    font-family: 'Bebas';
+    font-size: x-large;
+    cursor: pointer;
+}
+.new-player-turn button:hover {
+    background-color: #660D0E;
+    color: #DD8C1A;
+}
+.new-player-turn.show{
+    display: flex;
+}
+/* Begin Game */
+.start-game{
+    display: none;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: .9;
+    color: white;
+    font-size: 5rem;
+}
+.start-game button{
+    display: flex;
+    justify-content: center;
+    margin: 35px auto;
+    background-color: #DD8C1A;
+    color: #660D0E;
+    text-align: center;
+    padding: 5px 28px;
+    border-radius: 8px;
+    width: 17%;
+    box-shadow: 5px 5px 20px 5px rgb(80, 5, 5);
+    font-family: 'Bebas';
+    font-size: x-large;
+    cursor: pointer;
+}
+.start-game button:hover {
+    background-color: #660D0E;
+    color: #DD8C1A;
+}
+.start-game.show{
+    display: flex;
+}
+
+/* =======add rules carousel here======== */
