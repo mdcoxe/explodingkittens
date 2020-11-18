@@ -10,6 +10,9 @@ body {
     text-align: center;
     font-family: 'Bebas';
 }
+h2 {
+    color: #DD8C1A;
+}
 .rules-button{
     position: fixed;
     top: 250px;
@@ -204,3 +207,25 @@ body {
 }
 
 /* =======add rules carousel here======== */
+.carousel {
+    background-color: black;
+    color: white;
+    padding: 30px;
+    width: 50vw;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    top: 25%;
+    transform: translaateY(-45%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: none;
+  }
+  .carousel.show{
+    display: block;
+  }
+  .carousel img {
+    width: 100%;
+  }

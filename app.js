@@ -32,7 +32,46 @@ let player2Turn;
 // Rules/Card rules carousel
 // Flow through all available cards with text explaining game
 // 	- The carousel just turns through the different types of cards available...no choices given, just a read me type output.
+const beginButton = document.querySelector('.begin-game');//1
+const getStart = document.querySelector('.get-started');
+const carouselImage = document.querySelector('.carousel img');
+const carouselNext = document.getElementById('carousel-next');
+const carouselPrevious = document.getElementById('carousel-previous');
+const startButton = document.getElementById('startGameButton');
+const carousel = document.querySelector('.carousel');
+const backgroundImage = []
+let slideIndex = 0;
+//Update carousel image
+const updateCarouselImage = () => {
+    carouselImage.setAttribute('src', backgroundImage[slideIndex] )
+}
+updateCarouselImage();
 
+//change slide next function
+//when the user clicks the next button
+const changeSlideNext = () => {
+    if(slideIndex < backgroundImage.length -1){
+        slideIndex++;
+    } else {
+        slideIndex = 0;
+    }
+    updateCarouselImage();
+}
+const changeSlidePrevious = () => {
+    if(slideIndex >0){
+        slideIndex--;
+    }else {
+        slideIndex = backgroundImage.length -1;
+    }
+    updateCarouselImage();
+}
+const openCarousel = () =>{
+    carousel.classList.add('show');
+}
+
+carouselNext.addEventListener('click', changeSlideNext);
+carouselPrevious.addEventListener('click', changeSlidePrevious);
+// startButton.addEventListener('click', );
 //================================================//
 //=========Build the begin game function==========//
 //================================================//
