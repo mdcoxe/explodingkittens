@@ -36,7 +36,7 @@ let deck = [];
 let discard = [];
 
 const setActive= () =>{
-    if(player1 = true){
+    if(player1 === true){
         currentActive = player1Hand
         currentInActive = player2Hand
     } else {
@@ -149,10 +149,7 @@ const beginGame = () => {
     dealCards();
 //add in exploding kitten randomly
     exploKitt();
-console.log(deck);
-console.log(player1Hand);
-console.log(turnCounter);
-player1 = true//Ensures starting player is player 1
+    player1 = true//Ensures starting player is player 1
 }
 
 //==============Which Players turn ===============//
@@ -171,7 +168,20 @@ function whosTurn() {
 }
 //==============Show Active Cards ===============//
 // Only show active players cards after show cards screen is clicked
-
+function removeTurnOverlay () {
+    swapTurnsOverlay.classList.remove('show');
+}
+function applyTurnOverlay () {//removes both players hands from board 
+    swapTurnsOverlay.classList.add('show');
+    for(let i = 0; i < currentActive.length; i++){
+        let act = document.getElementById('active')
+        act.remove();   
+    }
+    for(let i = 0; i < currentInActive.length; i++){
+        let act2 = document.getElementById('inactive')
+        act2.remove();   
+    }
+}
 
 const showCards = () => {
     setActive();
@@ -190,8 +200,9 @@ const showCards = () => {
         inactiveCards.appendChild(cardDiv);
     }
     //remove overlay
-    swapTurnsOverlay.classList.remove('show');
+    removeTurnOverlay();
 }
+
 
 
 
@@ -285,6 +296,8 @@ const drawCard = () => {
     deck.splice(0,1);
     console.log(deck);
     console.log(currentActive);
+    applyTurnOverlay();
+    whosTurn();
 }
 //swap players (put up players turn page overlay)
 
