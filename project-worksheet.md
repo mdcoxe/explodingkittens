@@ -15,18 +15,24 @@
 |Day 1| ~~Project worksheet~~  | In-Progress
 |Day 1| ~~Wireframes~~ / ~~Priority Matrix / Timeline~~ | Complete
 |Day 2| ~~Flesh out HTML/CSS frame~~ / ~~PseudoCode~~ / ~~Build card class / add cards & Players~~ | Complete
-|Day 3| Build game logic and connect to DOM  | Incomplete
-|Day 4| Game Logic cont. / CSS / MVP | Incomplete
-|Day 5| CSS / Troubleshoot / Final Touches | Incomplete
-|Day 6| CSS / Explode a kitten or 2 | Incomplete
+|Day 3| Build game logic and connect to DOM  | Continued on
+|Day 4| Game Logic cont. / Explode a kitten or 2| Incomplete
+|Day 5| Troubleshoot / CSS / MVP| Incomplete
+|Day 6| Troubleshoot / CSS / MVP| | Incomplete
+|Day 7| Final Touches / Explode a kitten or 2 | Incomplete
 
 - Day 2 - Completed additional accomplishments
 	- Built and styled rules carousel
 	-got the first event listeners on program and working
-
-- Day 3 - Build shuffle function for both initial game start and for shuffle card
-	- start game logic ad adding to the DOM 
-	- EOD remove card divs from index.html file and use via DOM manipulation on 
+- Day 3 - Completed 
+	- shuffle function for both initial game start and for shuffle card
+	- was able to make cards appear on the DOM, take turns, draw a card, and discard a card. 
+	- Created a bug with chooseCard function...does it's job correctly but now it breaks the overlay function that removed cards from the DOM to prep for the next turn
+	- adjusted schedule
+- Day 4 - 
+	- Complete choose card function and track down the bug
+	- Finish building out the basic game functions 
+	- start adding in the card functions
 
 ## Project Description
 
