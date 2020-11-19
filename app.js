@@ -4,6 +4,7 @@
 const startButton = document.getElementById('startGameButton');//e listener added
 const rulesButton = document.getElementById('showRulesButton');//e listener added
 const resetButton = document.getElementById('resetButton');//e listener added
+const backButton = document.getElementById('backButton');//e listener added
 const showButton = document.getElementById('showButton')
 const carouselNext = document.getElementById('carousel-next');//e listener added
 const carouselPrevious = document.getElementById('carousel-previous');//e listener added
@@ -13,26 +14,20 @@ const carousel = document.querySelector('.carousel');
 const gameOverOverlay = document.querySelector('.gameOver');
 const card = document.querySelector('.card');//e listener added
 const startGameOverlay = document.getElementById('start-game');
-const swapTurnsOverlay = document.getElementById('new-players-turn');
+const swapTurnsOverlay = document.getElementById('new-player-turn');
+const activeCards = document.getElementById('active-cards');
+const inactiveCards = document.getElementById('inactive-cards');
+
+let player1; //odds
+let player2; //evens
+let turnCounter = 0;
 //=============Arrays===============//
 let player1Hand = [];
 let player2Hand = [];
 let deck = [];
 let discard = [];
 
-//================================================//
-//============Players turn function ==============//
-//================================================//
-// Whose turn is it.
-let dontSkipTurn = true;
-let player2Turn;
-// function whosTurn() {
-//    if(skipTurn = false){
-//        player2Turn = player2Turn
-//        skipTurn = true
-//    } else {
-//        player2Turn = !player2Turn
-// }
+
 //================================================//
 //==========Build the ruless carousel ============//
 //================================================//
@@ -68,9 +63,13 @@ const changeSlidePrevious = () => {
     updateCarouselImage();
 }
 const openCarousel = () =>{
+    startGameOverlay.classList.remove('show');
     carousel.classList.add('show');
+    
 }
-
+const closeCarousel = () => {
+    carousel.classList.remove('show');
+}
 //================================================//
 //==========Build the cards and the deck==========//
 //================================================//
@@ -86,7 +85,8 @@ const cardId = [1,2,3,4]
 const generateDeck = () => {
         for(let n = 0; n < cardNames.length; n++) {
             for(let i = 0; i < cardId.length; i++){
-                deck.push(new Card(cardNames[n], cardNames[n] + cardId[i]))
+                var cards = new Card(cardNames[n], cardNames[n] + cardId[i]);
+                deck.push(cards)
             }
         }
         for(let i = 0; i < 4; i++){
@@ -106,20 +106,10 @@ const generateDeck = () => {
 //loop to generate cards and add to the deck
 // 	-  The Deck of cards (needs to be a button when pressed draws a card and then gives option to end turn after viewing drawn card
 
-
-
-
-
-
-
-
-
 //================================================//
 //=================Game Logic=====================//
 //================================================//
-
-
-//=========Build the begin game function==========//
+     //=========begin game function==========//
 const beginGame = () => {
 // - Build begin game state no cards dealt to the players and no card in the discard pile
     // call the begin game protect card overlay from CSS with start and rules butto
@@ -142,25 +132,70 @@ const beginGame = () => {
     exploKitt();
 console.log(deck);
 console.log(player1Hand);
-console.log(player2Hand);
-player2Turn = false //Ensures starting player is player 1
+console.log(turnCounter);
+player1 = true//Ensures starting player is player 1
 }
-const startGame = () => {
-    swapTurnsOverlay.classList.add('show');
-    startGameOverlay.classList.remove('show');
+
+
+//================================================//
+//=================Players turn ==================//
+//================================================//
+//whos turn is it
+function whosTurn() {
+    turnCounter++;
+    if(turnCounter % 2 == 0){
+        player1 = true
+        player2 = false
+    } else {
+        player1 = false
+        player2 = true
+    }
+    console.log(turnCounter);
 }
+
+
+
 const showCards = () => {
-    // swap players turns
+    let currentActive;
+    let currentInActive;
+    if(player1 = true){
+        currentActive = player1Hand
+        currentInActive = player2Hand
+    } else {
+        currentActive = player2Hand
+        currentInActive = player1Hand
+    }
+    for(let i = 0; i < currentActive.length; i++){
+        let cardDiv = document.createElement('div');
+        cardDiv.setAttribute('class', 'card');
+        cardDiv.innerText = `${currentActive[i].name}`
+        activeCards.appendChild(cardDiv);
+    }
+    for(let i = 0; i < currentInActive.length; i++ ){
+        let cardDiv = document.createElement('div');
+        cardDiv.setAttribute('class', 'card');
+        inactiveCards.appendChild(cardDiv);
+    }
+    
     //swap visible cards to new active players array
     //remove overlay
     swapTurnsOverlay.classList.remove('show');
-    
 }
-//Functions
-//chooses player card on click and does action of card
-function chooseCard (){
 
-};
+// on draw card end turn and swap player turn
+
+//================================================//
+//============Additional Functions================//
+//================================================//
+//chooses player card on click and does action of card
+// function chooseCard (){
+
+// };
+//Removes start over lay and adds card protect overlay...can be built into other function...needed to start
+const startGame = () => {
+    startGameOverlay.classList.remove('show');
+    swapTurnsOverlay.classList.add('show');
+}
 //Shuffle randomly swap values of 2 different cards in arrray for 100 permutations
 function shuffle(x) {
     for(let i = 0; i < 500; i++){
@@ -240,8 +275,9 @@ carouselPrevious.addEventListener('click', changeSlidePrevious);
 startButton.addEventListener('click', startGame );
 rulesButton.addEventListener('click', openCarousel);
 resetButton.addEventListener('click', resetGame);
+backButton.addEventListener('click', closeCarousel);
 showButton.addEventListener('click', showCards);
-card.addEventListener('click', chooseCard)
+// card.addEventListener('click', chooseCard);
 //================================================//
 //=============Let's Play!!!!!!===================//
 //================================================//
