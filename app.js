@@ -138,7 +138,7 @@ player1 = true//Ensures starting player is player 1
 
 
 //================================================//
-//=================Players turn ==================//
+//==============Which Players turn ===============//
 //================================================//
 //whos turn is it
 function whosTurn() {
@@ -154,7 +154,7 @@ function whosTurn() {
 }
 
 
-
+// Only show active players cards after show cards screen is clicked
 const showCards = () => {
     let currentActive;
     let currentInActive;
