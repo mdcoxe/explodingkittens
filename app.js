@@ -12,12 +12,13 @@ const carouselImage = document.querySelector('.carousel img');
 const carouselText = document.querySelector('.carouselText');
 const carousel = document.querySelector('.carousel');
 const gameOverOverlay = document.querySelector('.gameOver');
-const card = document.querySelector('.card');//e listener added
+const card = document.getElementById('active-cards');//e listener added
 const startGameOverlay = document.getElementById('start-game');
 const swapTurnsOverlay = document.getElementById('new-player-turn');
 const activeCards = document.getElementById('active-cards');
 const inactiveCards = document.getElementById('inactive-cards');
 const deckButton = document.getElementById('play-deck');
+const discardDeck = document.getElementById('discard-deck');
 
 let player1; //odds
 let player2; //evens
@@ -167,11 +168,13 @@ function whosTurn() {
     console.log(turnCounter);
 }
 //==============Show Active Cards ===============//
+//See cards on DOM, show active players cards, hides non-active players cards
 // Only show active players cards after show cards screen is clicked
 function removeTurnOverlay () {
     swapTurnsOverlay.classList.remove('show');
 }
-function applyTurnOverlay () {//removes both players hands from board 
+//removes both players hands from board 
+function applyTurnOverlay () {
     swapTurnsOverlay.classList.add('show');
     for(let i = 0; i < currentActive.length; i++){
         let act = document.getElementById('active')
@@ -182,7 +185,6 @@ function applyTurnOverlay () {//removes both players hands from board
         act2.remove();   
     }
 }
-
 const showCards = () => {
     setActive();
     //swap visible cards to new active players array
@@ -204,8 +206,6 @@ const showCards = () => {
 }
 
 
-
-
 //================================================//
 //============Additional Functions================//
 //================================================//
@@ -213,7 +213,7 @@ const showCards = () => {
 //Removes start over lay and adds card protect overlay...can be built into other function...needed to start
 const startGame = () => {
     startGameOverlay.classList.remove('show');
-    swapTurnsOverlay.classList.add('show');
+    applyTurnOverlay();
 }
 //Shuffle randomly swap values of 2 different cards in arrray for 100 permutations
 function shuffle(x) {
@@ -245,27 +245,20 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
 }
 //chooses player card on click and does action of card
 // function gamePlay () {
-//     card.addEventListener("click", chooseCard);
-//     if(player1 = true){
-//         currentActive = player1Hand
-//         currentInActive = player2Hand
-//     } else {
-//         currentActive = player2Hand
-//         currentInActive = player1Hand
-//     }
-//     for (let i = 0; i < currentActive.length; i++){
-//         let arr = currentActive[i];
-        
-//     };
-    
-    
-        
-//     }
+//     
 
-// choose card 
+
+//======= choose card =========//
+function chooseCard(e){
 //player can click either a card in hand to play or draw card to add card to hand and to end turn passing current turn to opposing player
 //on click - player chooses one of their cards to play
-    //remove from players hand array 
+    // e.push(discard);
+    // let cardDiv = document.createElement('div');
+    // cardDiv.setAttribute('class', 'discardedCard');
+    // cardDiv.innerText = `${e.target.name}`
+    // discardDeck.appendChild(cardDiv);
+    e.target.remove()
+//remove from players hand array 
   
     //add to discard array
 
@@ -275,15 +268,16 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
 
 //cards function runs
 //either skip draw or draw
-//if draw card remove card from deck, add to player hand
-//See cards on DOM, show active players cards, hides non-active players cards
 
+
+}
 //Play card (1 per turn) on click removes from player array and adds to discard array.  Shows on top.
 //-----play card - on click of a card remove from hand and place on discard pile then do action of card - not required function...can draw instead and end turn
 
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
 // on draw card end turn and swap player turn
+//if draw card remove card from deck, add to player hand
 const drawCard = () => {
     setActive();
     currentActive.unshift(deck[0]);
@@ -317,26 +311,23 @@ function resetGame () {
 //================================================//
 //=============Buttony button=====================//
 //================================================//
-// - Restart button
-// - rules button
-// - show cards button
-// - start game button
-// - draw card - for the deck, whole deck is button
-// - play card - click any button for the 
 
 
-
-
-
-// - Add in all the event listeners
+// - rules/carousel buttons
+rulesButton.addEventListener('click', openCarousel);
+backButton.addEventListener('click', closeCarousel);
 carouselNext.addEventListener('click', changeSlideNext);
 carouselPrevious.addEventListener('click', changeSlidePrevious);
+// - start game button
 startButton.addEventListener('click', startGame );
-rulesButton.addEventListener('click', openCarousel);
+// - Restart button
 resetButton.addEventListener('click', resetGame);
-backButton.addEventListener('click', closeCarousel);
+// - show cards button
 showButton.addEventListener('click', showCards);
+// - draw card - for the deck, whole deck is button
 deckButton.addEventListener('click', drawCard);
+// - play card - click any button for the 
+card.addEventListener("click", chooseCard);
 //================================================//
 //=============Let's Play!!!!!!===================//
 //================================================//
