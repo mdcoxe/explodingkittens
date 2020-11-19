@@ -17,15 +17,33 @@ const startGameOverlay = document.getElementById('start-game');
 const swapTurnsOverlay = document.getElementById('new-player-turn');
 const activeCards = document.getElementById('active-cards');
 const inactiveCards = document.getElementById('inactive-cards');
+const deckButton = document.getElementById('play-deck');
 
 let player1; //odds
 let player2; //evens
 let turnCounter = 0;
+let currentActive;
+let currentInActive;
+
+
+
+
+
 //=============Arrays===============//
 let player1Hand = [];
 let player2Hand = [];
 let deck = [];
 let discard = [];
+
+const setActive= () =>{
+    if(player1 = true){
+        currentActive = player1Hand
+        currentInActive = player2Hand
+    } else {
+        currentActive = player2Hand
+        currentInActive = player1Hand
+    }
+}
 
 
 //================================================//
@@ -102,14 +120,15 @@ const generateDeck = () => {
 // 	-  Attack - end turn without drawing card(using skip function), opposing player takes 2 turns
 // 	-  Skip - immediately end your turn without drawing( need 2 skip cards to end attack since it's 2 turns)
 // 	-  Shuffle - Shuffle deck (reorder deck cards remaining in random order)
-
+//shuffle(deck);
 //loop to generate cards and add to the deck
 // 	-  The Deck of cards (needs to be a button when pressed draws a card and then gives option to end turn after viewing drawn card
 
 //================================================//
 //=================Game Logic=====================//
 //================================================//
-     //=========begin game function==========//
+    
+//=========begin game function==========//
 const beginGame = () => {
 // - Build begin game state no cards dealt to the players and no card in the discard pile
     // call the begin game protect card overlay from CSS with start and rules butto
@@ -136,10 +155,8 @@ console.log(turnCounter);
 player1 = true//Ensures starting player is player 1
 }
 
-
-//================================================//
 //==============Which Players turn ===============//
-//================================================//
+
 //whos turn is it
 function whosTurn() {
     turnCounter++;
@@ -152,45 +169,36 @@ function whosTurn() {
     }
     console.log(turnCounter);
 }
-
-
+//==============Show Active Cards ===============//
 // Only show active players cards after show cards screen is clicked
+
+
 const showCards = () => {
-    let currentActive;
-    let currentInActive;
-    if(player1 = true){
-        currentActive = player1Hand
-        currentInActive = player2Hand
-    } else {
-        currentActive = player2Hand
-        currentInActive = player1Hand
-    }
+    setActive();
+    //swap visible cards to new active players array
     for(let i = 0; i < currentActive.length; i++){
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
+        cardDiv.setAttribute('id', 'active')
         cardDiv.innerText = `${currentActive[i].name}`
         activeCards.appendChild(cardDiv);
     }
     for(let i = 0; i < currentInActive.length; i++ ){
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
+        cardDiv.setAttribute('id', 'inactive')
         inactiveCards.appendChild(cardDiv);
     }
-    
-    //swap visible cards to new active players array
     //remove overlay
     swapTurnsOverlay.classList.remove('show');
 }
 
-// on draw card end turn and swap player turn
+
 
 //================================================//
 //============Additional Functions================//
 //================================================//
-//chooses player card on click and does action of card
-// function chooseCard (){
 
-// };
 //Removes start over lay and adds card protect overlay...can be built into other function...needed to start
 const startGame = () => {
     startGameOverlay.classList.remove('show');
@@ -216,6 +224,7 @@ function dealCards() {
         player2Hand.push(card2);
         deck.splice(i, 1)
     }
+  
 }
 //add in exploding kitten randomly into the deck
 function exploKitt() {
@@ -223,12 +232,36 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
         deck.push(explodingKitten);
         shuffle(deck);
 }
+//chooses player card on click and does action of card
+// function gamePlay () {
+//     card.addEventListener("click", chooseCard);
+//     if(player1 = true){
+//         currentActive = player1Hand
+//         currentInActive = player2Hand
+//     } else {
+//         currentActive = player2Hand
+//         currentInActive = player1Hand
+//     }
+//     for (let i = 0; i < currentActive.length; i++){
+//         let arr = currentActive[i];
+        
+//     };
+    
+    
+        
+//     }
 
-// gamePlay();
-//choose players turn
+// choose card 
 //player can click either a card in hand to play or draw card to add card to hand and to end turn passing current turn to opposing player
-
 //on click - player chooses one of their cards to play
+    //remove from players hand array 
+  
+    //add to discard array
+
+    //create div and append to discard
+
+
+
 //cards function runs
 //either skip draw or draw
 //if draw card remove card from deck, add to player hand
@@ -239,7 +272,20 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
 
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
-
+// on draw card end turn and swap player turn
+const drawCard = () => {
+    setActive();
+    currentActive.unshift(deck[0]);
+    console.log(currentActive);
+    let cardDiv = document.createElement('div');
+    cardDiv.setAttribute('class', 'card');
+    cardDiv.setAttribute('id', 'active')
+    cardDiv.innerText = `${currentActive[0].name}`
+    activeCards.appendChild(cardDiv);
+    deck.splice(0,1);
+    console.log(deck);
+    console.log(currentActive);
+}
 //swap players (put up players turn page overlay)
 
 
@@ -277,8 +323,9 @@ rulesButton.addEventListener('click', openCarousel);
 resetButton.addEventListener('click', resetGame);
 backButton.addEventListener('click', closeCarousel);
 showButton.addEventListener('click', showCards);
-// card.addEventListener('click', chooseCard);
+deckButton.addEventListener('click', drawCard);
 //================================================//
 //=============Let's Play!!!!!!===================//
 //================================================//
 beginGame();
+gamePlay();
