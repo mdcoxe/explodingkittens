@@ -5,19 +5,18 @@ const startButton = document.getElementById('startGameButton');//e listener adde
 const rulesButton = document.getElementById('showRulesButton');//e listener added
 const resetButton = document.getElementById('resetButton');//e listener added
 const backButton = document.getElementById('backButton');//e listener added
-const showButton = document.getElementById('showButton')
+const showButton = document.getElementById('showButton');//e listener added
 const carouselNext = document.getElementById('carousel-next');//e listener added
 const carouselPrevious = document.getElementById('carousel-previous');//e listener added
 const carouselImage = document.querySelector('.carousel img');
 const carouselText = document.querySelector('.carouselText');
 const carousel = document.querySelector('.carousel');
 const gameOverOverlay = document.querySelector('.gameOver');
-const card = document.getElementById('active-cards');//e listener added
 const startGameOverlay = document.getElementById('start-game');
 const swapTurnsOverlay = document.getElementById('new-player-turn');
 const activeCards = document.getElementById('active-cards');
 const inactiveCards = document.getElementById('inactive-cards');
-const deckButton = document.getElementById('play-deck');
+const deckButton = document.getElementById('play-deck');//e listener added
 const discardDeck = document.getElementById('discard-deck');
 
 let player1; //odds
@@ -31,11 +30,11 @@ let currentInActive;
 
 
 //=============Arrays===============//
+
 let player1Hand = [];
 let player2Hand = [];
 let deck = [];
 let discard = [];
-
 const setActive= () =>{
     if(player1 === true){
         currentActive = player1Hand
@@ -62,7 +61,6 @@ const updateCarouselImage = () => {
     carouselText.innerText = `${rulesText[slideIndex]}`;
 }
 updateCarouselImage();
-
 //change slide next function
 //when the user clicks the next button
 const changeSlideNext = () => {
@@ -109,11 +107,10 @@ const generateDeck = () => {
             }
         }
         for(let i = 0; i < 4; i++){
-            const defuseCard = new Card ('Defuse', 'defuse' + i)
+            const defuseCard = new Card ('Defuse', 'Defuse' + i)
             deck.push(defuseCard);
         }
 }
-
 // 	- append individual rules to the parent class??
 // - Build functions for the cards 
 // 	-  exploding kitten (endgame/choice if defuse card available) - triggers engame state
@@ -173,16 +170,21 @@ function whosTurn() {
 function removeTurnOverlay () {
     swapTurnsOverlay.classList.remove('show');
 }
-//removes both players hands from board 
+//removes both players hands from DOM so they can be swapped and added back 
 function applyTurnOverlay () {
+    setActive();
+    if(currentActive.length > 0){
     swapTurnsOverlay.classList.add('show');
     for(let i = 0; i < currentActive.length; i++){
-        let act = document.getElementById('active')
+        let act = document.querySelector('.card')
         act.remove();   
     }
     for(let i = 0; i < currentInActive.length; i++){
-        let act2 = document.getElementById('inactive')
+        let act2 = document.querySelector('.card')
         act2.remove();   
+    }
+    } else {
+        swapTurnsOverlay.classList.add('show');
     }
 }
 const showCards = () => {
@@ -191,14 +193,14 @@ const showCards = () => {
     for(let i = 0; i < currentActive.length; i++){
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
-        cardDiv.setAttribute('id', 'active')
+        cardDiv.setAttribute('id', `${currentActive[i].id}`)
         cardDiv.innerText = `${currentActive[i].name}`
         activeCards.appendChild(cardDiv);
+        cardDiv.addEventListener("click", chooseCard);
     }
     for(let i = 0; i < currentInActive.length; i++ ){
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
-        cardDiv.setAttribute('id', 'inactive')
         inactiveCards.appendChild(cardDiv);
     }
     //remove overlay
@@ -215,7 +217,7 @@ const startGame = () => {
     startGameOverlay.classList.remove('show');
     applyTurnOverlay();
 }
-//Shuffle randomly swap values of 2 different cards in arrray for 100 permutations
+//Shuffle randomly swap values of 2 different cards in arrray for 500 permutations
 function shuffle(x) {
     for(let i = 0; i < 500; i++){
         let arr1 = Math.floor((Math.random() * x.length));
@@ -235,7 +237,6 @@ function dealCards() {
         player2Hand.push(card2);
         deck.splice(i, 1)
     }
-  
 }
 //add in exploding kitten randomly into the deck
 function exploKitt() {
@@ -249,30 +250,26 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
 
 
 //======= choose card =========//
-function chooseCard(e){
-//player can click either a card in hand to play or draw card to add card to hand and to end turn passing current turn to opposing player
+function chooseCard(){
+//player can click either a card in hand to play
 //on click - player chooses one of their cards to play
-    // e.push(discard);
-    // let cardDiv = document.createElement('div');
-    // cardDiv.setAttribute('class', 'discardedCard');
-    // cardDiv.innerText = `${e.target.name}`
-    // discardDeck.appendChild(cardDiv);
-    e.target.remove()
-//remove from players hand array 
-  
-    //add to discard array
+    setActive();   
+    // Remove clicked card from DOM and find id of removed card
+    const currVal = this.parentNode.removeChild(this).id
+    // find index using id
+    let index = currentActive.findIndex(x => x.id === currVal);
+    //Add to 0 index of discard array
+    discard.splice(0, 0, currentActive[index])
+    //remove from players hand array 
+    currentActive.splice(index, 1)
+    //build the div, name and append
+    let cardDiv = document.createElement('div');
+    cardDiv.setAttribute('class', 'discardedCard');
+    cardDiv.innerText = `${discard[0].name}`
+    discardDeck.appendChild(cardDiv);
 
-    //create div and append to discard
-
-
-
-//cards function runs
-//either skip draw or draw
-
-
+    //Call selected cards' function  
 }
-//Play card (1 per turn) on click removes from player array and adds to discard array.  Shows on top.
-//-----play card - on click of a card remove from hand and place on discard pile then do action of card - not required function...can draw instead and end turn
 
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
@@ -284,7 +281,7 @@ const drawCard = () => {
     console.log(currentActive);
     let cardDiv = document.createElement('div');
     cardDiv.setAttribute('class', 'card');
-    cardDiv.setAttribute('id', 'active')
+    cardDiv.setAttribute('id', `${currentActive[0].id}`)
     cardDiv.innerText = `${currentActive[0].name}`
     activeCards.appendChild(cardDiv);
     deck.splice(0,1);
@@ -292,8 +289,10 @@ const drawCard = () => {
     console.log(currentActive);
     applyTurnOverlay();
     whosTurn();
+
+    //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
 }
-//swap players (put up players turn page overlay)
+
 
 
 
@@ -305,13 +304,17 @@ const drawCard = () => {
 //show via exploding kitten giant card with button to defuse (if in players hand) or with end game button that declares winner by moving to game over overlay
 // - Game over page overlay has restart button
 
-function resetGame () {
-    beginGame();
-}
+
+
+
+
+
 //================================================//
 //=============Buttony button=====================//
 //================================================//
-
+function resetGame () {
+    beginGame();
+}
 
 // - rules/carousel buttons
 rulesButton.addEventListener('click', openCarousel);
@@ -327,9 +330,9 @@ showButton.addEventListener('click', showCards);
 // - draw card - for the deck, whole deck is button
 deckButton.addEventListener('click', drawCard);
 // - play card - click any button for the 
-card.addEventListener("click", chooseCard);
+
 //================================================//
 //=============Let's Play!!!!!!===================//
 //================================================//
 beginGame();
-gamePlay();
+// gamePlay();
