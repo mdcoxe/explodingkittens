@@ -6,6 +6,7 @@ const rulesButton = document.getElementById('showRulesButton');//e listener adde
 const resetButton = document.getElementById('resetButton');//e listener added
 const backButton = document.getElementById('backButton');//e listener added
 const showButton = document.getElementById('showButton');//e listener added
+const defuseButton = document.getElementById('')
 const carouselNext = document.getElementById('carousel-next');//e listener added
 const carouselPrevious = document.getElementById('carousel-previous');//e listener added
 const carouselImage = document.querySelector('.carousel img');
@@ -14,11 +15,14 @@ const carousel = document.querySelector('.carousel');
 const gameOverOverlay = document.querySelector('.gameOver');
 const startGameOverlay = document.getElementById('start-game');
 const swapTurnsOverlay = document.getElementById('new-player-turn');
+const exploKittyOverlay = document.getElementById('explo-kitty');
 const activeCards = document.getElementById('active-cards');
 const inactiveCards = document.getElementById('inactive-cards');
 const deckButton = document.getElementById('play-deck');//e listener added
 const discardDeck = document.getElementById('discard-deck');
-
+//================================================//
+//=============== Global Variables================//
+//================================================//
 let player1; //odds
 let player2; //evens
 let turnCounter = 0;
@@ -98,6 +102,10 @@ const openCarousel = () =>{
 const closeCarousel = () => {
     carousel.classList.remove('show');
 }
+
+
+
+
 //================================================//
 //==========Build the cards and the deck==========//
 //================================================//
@@ -122,7 +130,7 @@ const generateDeck = () => {
             deck.push(defuseCard);
         }
 }
-// 	- append individual rules to the parent class??
+
 // - Build functions for the cards 
 // 	-  exploding kitten (endgame/choice if defuse card available) - triggers engame state
 // 	-  defuse kitten - if defuse card played add exploding kitten back into deck in random spot
@@ -132,6 +140,9 @@ const generateDeck = () => {
 //shuffle(deck);
 //loop to generate cards and add to the deck
 // 	-  The Deck of cards (needs to be a button when pressed draws a card and then gives option to end turn after viewing drawn card
+
+
+
 
 //================================================//
 //=================Game Logic=====================//
@@ -268,9 +279,6 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
         shuffle(deck);
 }
 //chooses player card on click and does action of card
-
-
-
 //======= choose card =========//
 function chooseCard(){
 //player can click either a card in hand to play
@@ -323,21 +331,46 @@ function chooseCard(){
 const drawCard = () => {
     setActive();
     currentActive.unshift(deck[0]);
-    let cardDiv = document.createElement('div');
-    cardDiv.setAttribute('class', 'card');
-    cardDiv.setAttribute('id', `${currentActive[0].id}`)
-    cardDiv.innerText = `${currentActive[0].name}`
-    activeCards.appendChild(cardDiv);
-    deck.splice(0,1);
-    console.log(deck);
-    console.log(currentActive);
-    applyTurnOverlay();
-    whosTurn();
-
+    if(deck[0].name === 'Exploding Kitten'){
+        defuseKitten();
+    } else {
+        let cardDiv = document.createElement('div');
+        cardDiv.setAttribute('class', 'card');
+        cardDiv.setAttribute('id', `${currentActive[0].id}`)
+        cardDiv.innerText = `${currentActive[0].name}`
+        activeCards.appendChild(cardDiv);
+        deck.splice(0,1);
+        console.log(deck);
+        console.log(currentActive);
+        applyTurnOverlay();
+        whosTurn();
+    }   
     //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
 }
 
-
+const defuseKitten = () => {
+    exploKittyOverlay.classList.add('show');
+    for(let i = 0; i < currentActive.length; i++){
+        if(currentActive[i] === 'Defuse'){
+            // Remove clicked card from DOM and find id of removed card
+            this.parentNode.removeChild(this)
+            //Add to 0 index of discard array
+            discard.splice(0, 0, currentActive[i])
+            //remove from players hand array 
+            currentActive.splice(i, 1)
+            //build the div, name and append
+            let cardDiv = document.createElement('div');
+            cardDiv.setAttribute('class', 'discardedCard');
+            cardDiv.innerText = `${discard[0].name}`
+            discardDeck.appendChild(cardDiv);
+            console.log(discardDeck);
+            console.log(discard);
+            break;
+        } else {
+            endGame();
+        }
+    }
+}
 
 
 
@@ -373,8 +406,8 @@ resetButton.addEventListener('click', resetGame);
 showButton.addEventListener('click', showCards);
 // - draw card - for the deck, whole deck is button
 deckButton.addEventListener('click', drawCard);
-// - play card - click any button for the 
-
+// - defuse the exploding kitten
+defuseButton.
 //================================================//
 //=============Let's Play!!!!!!===================//
 //================================================//

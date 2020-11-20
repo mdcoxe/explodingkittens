@@ -204,6 +204,54 @@ h2 {
 .start-game.show{
     display: flex;
 }
+/* =====Exploding kitty drawn============= */
+.explo-kitty{
+    display: none;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #B40A1D;
+    color: white;
+    font-size: 3rem;
+}
+.explo-kitty img{
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    
+}
+.explo-kitty button{
+    display: flex;
+    justify-content: center;
+    margin: 35px auto;
+    background-color: #DD8C1A;
+    color: #660D0E;
+    text-align: center;
+    padding: 5px 28px;
+    border-radius: 8px;
+    width: 17%;
+    box-shadow: 5px 5px 20px 5px rgb(80, 5, 5);
+    font-family: 'Bebas';
+    font-size: x-large;
+    cursor: pointer;
+}
+.explo-kitty button:hover {
+    background-color: #660D0E;
+    color: #DD8C1A;
+}
+.explo-kitty.show{
+    display: flex;
+}
+
+
+
+
+
 
 /* =======add rules carousel here======== */
 .carousel {

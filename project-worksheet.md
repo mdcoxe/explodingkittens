@@ -15,9 +15,9 @@
 |Day 1| ~~Project worksheet~~  | In-Progress
 |Day 1| ~~Wireframes~~ / ~~Priority Matrix / Timeline~~ | Complete
 |Day 2| ~~Flesh out HTML/CSS frame~~ / ~~PseudoCode~~ / ~~Build card class / add cards & Players~~ | Complete
-|Day 3| Build game logic and connect to DOM  | Continued on
-|Day 4| Game Logic cont. / Explode a kitten or 2| Incomplete
-|Day 5| Troubleshoot / CSS / MVP| Incomplete
+|Day 3| ~~Build game logic and connect to DOM ~~ | Continued on
+|Day 4| ~~Game Logic cont. ~~| Complete
+|Day 5| Add in card functions and clean up gameplay / Troubleshoot / MVP| Incomplete
 |Day 6| Troubleshoot / CSS / MVP| | Incomplete
 |Day 7| Final Touches / Explode a kitten or 2 | Incomplete
 
@@ -29,10 +29,14 @@
 	- was able to make cards appear on the DOM, take turns, draw a card, and discard a card. 
 	- Created a bug with chooseCard function...does it's job correctly but now it breaks the overlay function that removed cards from the DOM to prep for the next turn
 	- adjusted schedule
-- Day 4 - 
+- Day 4 - Completed
 	- Complete choose card function and track down the bug
 	- Finish building out the basic game functions 
-	- start adding in the card functions
+	- Able to make shuffle card and skip card work
+-Day 5 - 
+	- add in attach card
+	- Make defuse and exploding kitten functional
+
 
 ## Project Description
 
