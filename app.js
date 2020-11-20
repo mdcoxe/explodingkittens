@@ -44,7 +44,18 @@ const setActive= () =>{
         currentInActive = player1Hand
     }
 }
-
+const gamePlay = () => {
+    whosTurn();
+    setActive();
+    applyTurnOverlay();
+    showCards();
+    console.log('deck')
+    console.log(deck);
+    console.log('player 1 cards');
+    console.log(player1Hand)
+    console.log('player 2 cards');
+    console.log(player2Hand)    
+}
 
 //================================================//
 //==========Build the ruless carousel ============//
@@ -155,7 +166,7 @@ const beginGame = () => {
 //whos turn is it
 function whosTurn() {
     turnCounter++;
-    if(turnCounter % 2 == 0){
+    if(turnCounter % 2 === 0){
         player1 = true
         player2 = false
     } else {
@@ -172,7 +183,7 @@ function removeTurnOverlay () {
 }
 //removes both players hands from DOM so they can be swapped and added back 
 function applyTurnOverlay () {
-    setActive();
+    // setActive();
     if(currentActive.length > 0){
     swapTurnsOverlay.classList.add('show');
     for(let i = 0; i < currentActive.length; i++){
@@ -217,15 +228,27 @@ const startGame = () => {
     startGameOverlay.classList.remove('show');
     applyTurnOverlay();
 }
-//Shuffle randomly swap values of 2 different cards in arrray for 500 permutations
+
+//adapted from https://medium.com/@joshfoster_14132/best-javascript-shuffle-algorithm-c2c8057a3bc1
+//Fisher-Yates Shuffle
 function shuffle(x) {
-    for(let i = 0; i < 500; i++){
-        let arr1 = Math.floor((Math.random() * x.length));
-        let arr2 = Math.floor((Math.random() * x.length));
-        let arr3 = x[arr1]
-        x[arr1] = x[arr2];
-        x[arr2] = arr3;
+    let currI = x.length, tmp, rIndex;
+    while(0 !== currI) {
+        rIndex = Math.floor(Math.random() * currI);
+        currI -= 1;
+        tmp = x[currI];
+        x[currI] = x[rIndex];
+        x[rIndex] = tmp
     }
+    //Shuffle randomly swap values of 2 different cards in arrray for 500 permutations
+    //This one works as well
+    // for(let i = 0; i < 500; i++){
+    //     let arr1 = Math.floor((Math.random() * x.length));
+    //     let arr2 = Math.floor((Math.random() * x.length));
+    //     let arr3 = x[arr1]
+    //     x[arr1] = x[arr2];
+    //     x[arr2] = arr3;
+    // }
 }
 //deal the cards from already randomized array dealing cards one at a time
 function dealCards() {
@@ -245,8 +268,7 @@ const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
         shuffle(deck);
 }
 //chooses player card on click and does action of card
-// function gamePlay () {
-//     
+
 
 
 //======= choose card =========//
@@ -263,12 +285,35 @@ function chooseCard(){
     //remove from players hand array 
     currentActive.splice(index, 1)
     //build the div, name and append
+    
     let cardDiv = document.createElement('div');
     cardDiv.setAttribute('class', 'discardedCard');
     cardDiv.innerText = `${discard[0].name}`
     discardDeck.appendChild(cardDiv);
-
+    console.log(discardDeck);
+    console.log(discard);
     //Call selected cards' function  
+    if(discard[0].name === 'Shuffle'){
+        shuffle(deck);
+        //remove eventlistener for click...or modify to pop up alert to click on the deck
+        drawCard();
+        console.log('deck')
+        console.log(deck);
+        console.log('player 1 cards');
+        console.log(player1Hand)
+        console.log('player 2 cards');
+        console.log(player2Hand)   
+    } else if (discard[0].name === 'Skip'){
+        console.log('deck')
+        console.log(deck);
+        console.log('player 1 cards');
+        console.log(player1Hand)
+        console.log('player 2 cards');
+        console.log(player2Hand)    
+        setActive();
+        applyTurnOverlay();
+        whosTurn();
+    }
 }
 
 //Draw card (or skip function depending on card played)=====ends turn
@@ -278,7 +323,6 @@ function chooseCard(){
 const drawCard = () => {
     setActive();
     currentActive.unshift(deck[0]);
-    console.log(currentActive);
     let cardDiv = document.createElement('div');
     cardDiv.setAttribute('class', 'card');
     cardDiv.setAttribute('id', `${currentActive[0].id}`)
@@ -335,4 +379,4 @@ deckButton.addEventListener('click', drawCard);
 //=============Let's Play!!!!!!===================//
 //================================================//
 beginGame();
-// gamePlay();
+gamePlay();
