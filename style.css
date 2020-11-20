@@ -54,6 +54,11 @@ h2 {
     background-color: #1b1b1b;
     cursor: pointer;
 }
+#play-deck img{
+    width: 250px;
+    height: 350px;
+    border-radius: 8px;
+}
 .card{
     box-shadow: 5px 5px 20px 5px black;
 
@@ -182,6 +187,12 @@ h2 {
     color: white;
     font-size: 5rem;
 }
+.start-game img{
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    
+}
 .start-game button{
     display: flex;
     justify-content: center;
@@ -263,16 +274,22 @@ h2 {
     text-align: center;
     border-radius: 4px;
     position: fixed;
-    top: 25%;
+    top: 15%;
     transform: translaateY(-45%);
     left: 0;
     right: 0;
     margin: 0 auto;
     display: none;
   }
+  .carouselText{
+    background-color: black;
+    color: white;
+    margin: 35px;
+    font-size: x-large;
+  }
   .carousel.show{
     display: block;
   }
   .carousel img {
-    width: 100%;
+    width: 250px;
   }
