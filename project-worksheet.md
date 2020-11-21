@@ -17,7 +17,7 @@
 |Day 2| ~~Flesh out HTML/CSS frame~~ / ~~PseudoCode~~ / ~~Build card class / add cards & Players~~ | Complete
 |Day 3| ~~Build game logic and connect to DOM ~~ | Continued on
 |Day 4| ~~Game Logic cont. ~~| Complete
-|Day 5| Add in card functions and clean up gameplay / Troubleshoot / MVP| Incomplete
+|Day 5| Add in card functions and clean up gameplay / ~~Troubleshoot~~ / ~~MVP~~| Continued on
 |Day 6| Troubleshoot / CSS / MVP| | Incomplete
 |Day 7| Final Touches / Explode a kitten or 2 | Incomplete
 
@@ -33,9 +33,14 @@
 	- Complete choose card function and track down the bug
 	- Finish building out the basic game functions 
 	- Able to make shuffle card and skip card work
--Day 5 - 
-	- add in attach card
-	- Make defuse and exploding kitten functional
+-Day 5 - Completed
+	- didn't get the attack ard added in
+	- spent most of day troubleshooting through defuse and exploding kitten
+	- the game works, takes turns, draws a card, plays a card, when exploding kitten is drawn makes you defuse the card or end game and reset
+-Day 6 
+	- Add in attack card
+	- Clean up the folder, move images
+	- Build player icon so everyone knows whose cards are showing
 
 
 ## Project Description

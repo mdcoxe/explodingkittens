@@ -23,6 +23,8 @@ const inactiveCards = document.getElementById('inactive-cards');
 const deckButton = document.getElementById('play-deck');//e listener added
 const discardDeck = document.getElementById('discard-deck');
 const card = document.querySelector('.card');
+
+const swapText = document.querySelector('.New-player-turn-text');
 //================================================//
 //=============== Global Variables================//
 //================================================//
@@ -50,13 +52,7 @@ const gamePlay = () => {
     applyTurnOverlay();
     setActive();
     showCards();
-    // whosTurn();
-    console.log('deck')
-    console.log(deck);
-    console.log('player 1 cards');
-    console.log(player1Hand)
-    console.log('player 2 cards');
-    console.log(player2Hand)    
+    // whosTurn();   
 }
 //================================================//
 //==========Build the ruless carousel ============//
@@ -66,12 +62,12 @@ const gamePlay = () => {
 // 	- The carousel just turns through the different types of cards available...no choices given, just a read me type output.
 // images pulled from https://refreshplay.co.uk/2018/01/25/exploding-kittens-card-game-review/
 const backgroundImage = [
-    'attack-cat.jpg',
-    'explodingkittencard.png',
-    'defuse-card.png', 
-    'attack-card-back.png',
-    'shuffle-card.png',
-    'skip-card.png'
+    'images/attack-cat.jpg',
+    'images/explodingkittencard.png',
+    'images/defuse-card.png', 
+    'images/attack-card-back.png',
+    'images/shuffle-card.png',
+    'images/skip-card.png'
     ]; //add images for carousel here
 const rulesText = [
     'The basics, click on a card to play, click on the deck to draw a card.  Drawing a card ends your turn...don\'t die!',
@@ -118,22 +114,24 @@ const closeCarousel = () => {
 //================================================//
 // - class constructor for card generator - name and id
 class Card {
-    constructor(name, id){
+    constructor(name, id, image){
         this.name = name;
-        this.id = id;     
+        this.id = id;  
+        this.image = image;   
     }
 }
 const cardNames = ['Attack', 'Skip', 'Shuffle'];
-const cardId = [1,2,3,4]
+const cardId = [1,2,3,4];
+const cardImage = ['images/attack-card-back.png', 'images/skip-card.png', 'images/shuffle-card.png'];
 const generateDeck = () => {
         for(let n = 0; n < cardNames.length; n++) {
             for(let i = 0; i < cardId.length; i++){
-                var cards = new Card(cardNames[n], cardNames[n] + cardId[i]);
+                var cards = new Card(cardNames[n], cardNames[n] + cardId[i], cardImage[n]);
                 deck.push(cards)
             }
         }
         for(let i = 0; i < 4; i++){
-            const defuseCard = new Card ('Defuse', 'Defuse' + i)
+            const defuseCard = new Card ('Defuse', 'Defuse' + i, 'images/defuse-card.png')
             deck.push(defuseCard);
         }
 }
@@ -168,13 +166,6 @@ const beginGame = () => {
     exploKitt();
     player1 = true//Ensures starting player is player 1
     startGameOverlay.classList.remove('show');
-    // applyTurnOverlay();
-    console.log('deck')
-    console.log(deck);
-    console.log('player 1 cards');
-    console.log(player1Hand)
-    console.log('player 2 cards');
-    console.log(player2Hand)  
 }
 //==============Which Players turn ===============//
 //whos turn is it
@@ -197,8 +188,6 @@ function removeTurnOverlay () {
 }
 //removes both players hands from DOM so they can be swapped and added back 
 function applyTurnOverlay () {
-    // setActive();
-    // if(currentActive.length > 0){
     swapTurnsOverlay.classList.add('show');
     for(let i = 0; i < currentActive.length; i++){
         let act = document.querySelector('.card')
@@ -208,18 +197,27 @@ function applyTurnOverlay () {
         let act2 = document.querySelector('.card')
         act2.remove();   
     }
-    // } else {
-        // swapTurnsOverlay.classList.add('show');
-    // }
 }
 const showCards = () => {
     setActive();
+     if(player1 === true){
+        let playerText = document.querySelector('.whos-turn')
+        playerText.innerText = 'Player 1\'s Turn'
+        swapText.innerText = 'Player 2\'s Turn'
+    } else {
+        let playerText = document.querySelector('.whos-turn')
+        playerText.innerText = 'Player 2\'s Turn'
+        swapText.innerText = 'Player 1\'s Turn'
+    }
     //swap visible cards to new active players array
     for(let i = 0; i < currentActive.length; i++){
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
         cardDiv.setAttribute('id', `${currentActive[i].id}`)
         cardDiv.innerText = `${currentActive[i].name}`
+        let cardImg = document.createElement('img')
+        cardImg.src = `${currentActive[i].image}`
+        cardDiv.appendChild(cardImg);
         activeCards.appendChild(cardDiv);
         cardDiv.addEventListener("click", chooseCard);
     }
@@ -291,34 +289,30 @@ function chooseCard(){
     //remove from players hand array 
     currentActive.splice(index, 1)
     //build the div, name and append
+   
+
     let cardDiv = document.createElement('div');
     cardDiv.setAttribute('class', 'discardedCard');
     cardDiv.innerText = `${discard[0].name}`
     discardDeck.appendChild(cardDiv);
-    console.log(discardDeck);
-    console.log(discard);
+    // let cardImg = document.createElement('img')
+    // cardImg.src = `${discard[0].image}`
+    // cardDiv.appendChild(cardImg);
     //Call selected cards' function  
     if(discard[0].name === 'Shuffle'){
         shuffle(deck);
         //remove eventlistener for click...or modify to pop up alert to click on the deck
         drawCard();
-        console.log('deck')
-        console.log(deck);
-        console.log('player 1 cards');
-        console.log(player1Hand)
-        console.log('player 2 cards');
-        console.log(player2Hand)   
     } else if (discard[0].name === 'Skip'){
-        console.log('deck')
-        console.log(deck);
-        console.log('player 1 cards');
-        console.log(player1Hand)
-        console.log('player 2 cards');
-        console.log(player2Hand)    
         setActive();
         applyTurnOverlay();
         whosTurn();
-    }
+    }// else if (discard[0].name === 'Attack'){
+    //     setActive();
+    //     // attackOppP();
+    //     applyTurnOverlay();
+    //     whosTurn();
+    // }
 }
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
@@ -326,11 +320,12 @@ function chooseCard(){
 //if draw card remove card from deck, add to player hand
 const drawCard = () => {
     setActive();
-    currentActive.unshift(deck[0]);
+    
 //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
     if(deck[0].name === 'Exploding Kitten'){
         exploKittyOverlay.classList.add('show');
     } else {
+        currentActive.unshift(deck[0]);
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
         cardDiv.setAttribute('id', `${currentActive[0].id}`)
@@ -372,12 +367,15 @@ const defuseKitten = () => {
             //build the div, name and append
             let cardDiv = document.createElement('div');
             cardDiv.setAttribute('class', 'discardedCard');
-            cardDiv.innerText = `${currentActive[i].name}`
+            cardDiv.innerText = `${discard[0].name}`
             discardDeck.appendChild(cardDiv);
             break;
         } 
+    }  if(discard[0].name != 'Defuse'){
+        endGame();
+    } else {
+        exploKittyOverlay.classList.remove('show');
     }
-    exploKittyOverlay.classList.remove('show');
 }
 //================================================//
 //=============Buttony button=====================//

@@ -27,6 +27,28 @@ h2 {
     cursor: pointer;
     box-shadow: 5px 5px 20px 5px black;
 }
+.rules-button:hover {
+    background-color: #660D0E;
+    color: #DD8C1A;
+}
+.whos-turn{
+    position: fixed;
+    top: 400px;
+    right: 15px;
+    width: 150px;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid black;
+   
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 5px 5px 20px 5px black;
+    font-size: large;
+}
+.whos-turn:hover {
+    background-color: #660D0E;
+    color: #DD8C1A;
+}
 .decks{
     margin: 15px;
     display: flex;
@@ -84,6 +106,9 @@ h2 {
     width: 100%;
 }
 #active-cards .card{
+    display: flex;
+    flex-direction: column;
+    
     width: 250px;
     height: 150px;
     background-color: white;
@@ -91,6 +116,14 @@ h2 {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     cursor: pointer;
+}
+#active-cards.card img{
+   
+    margin:0 30px;
+    width: 70%;
+    height: 150px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 /* Game over man, game over */
 .gameOver{
