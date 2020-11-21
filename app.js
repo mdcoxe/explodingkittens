@@ -22,6 +22,7 @@ const activeCards = document.getElementById('active-cards');
 const inactiveCards = document.getElementById('inactive-cards');
 const deckButton = document.getElementById('play-deck');//e listener added
 const discardDeck = document.getElementById('discard-deck');
+const card = document.querySelector('.card');
 //================================================//
 //=============== Global Variables================//
 //================================================//
@@ -30,13 +31,7 @@ let player2; //evens
 let turnCounter = 0;
 let currentActive;
 let currentInActive;
-
-
-
-
-
 //=============Arrays===============//
-
 let player1Hand = [];
 let player2Hand = [];
 let deck = [];
@@ -51,10 +46,11 @@ const setActive= () =>{
     }
 }
 const gamePlay = () => {
-    whosTurn();
-    setActive();
+    // turnCounter++;
     applyTurnOverlay();
+    setActive();
     showCards();
+    // whosTurn();
     console.log('deck')
     console.log(deck);
     console.log('player 1 cards');
@@ -62,7 +58,6 @@ const gamePlay = () => {
     console.log('player 2 cards');
     console.log(player2Hand)    
 }
-
 //================================================//
 //==========Build the ruless carousel ============//
 //================================================//
@@ -85,8 +80,6 @@ const rulesText = [
     'You attacked, with your awesome back hair. End your turn without drawing a card, force your opponent to take 2 turns in a row',
     'Shuffles deck and ends turn by drawing a card...nerd speak...using the Fisher-Yates Shuffle',
     'You live to die another day, ends your turn without drawing a card'
-
-
 ]; 
 let slideIndex = 0;
 //Update carousel image
@@ -116,24 +109,18 @@ const changeSlidePrevious = () => {
 const openCarousel = () =>{
     startGameOverlay.classList.remove('show');
     carousel.classList.add('show');
-    
 }
 const closeCarousel = () => {
     carousel.classList.remove('show');
 }
-
-
-
-
 //================================================//
 //==========Build the cards and the deck==========//
 //================================================//
 // - class constructor for card generator - name and id
 class Card {
-    constructor(name, id, location){
+    constructor(name, id){
         this.name = name;
-        this.id = id;
-        
+        this.id = id;     
     }
 }
 const cardNames = ['Attack', 'Skip', 'Shuffle'];
@@ -150,20 +137,6 @@ const generateDeck = () => {
             deck.push(defuseCard);
         }
 }
-
-// - Build functions for the cards 
-// 	-  exploding kitten (endgame/choice if defuse card available) - triggers engame state
-// 	-  defuse kitten - if defuse card played add exploding kitten back into deck in random spot
-// 	-  Attack - end turn without drawing card(using skip function), opposing player takes 2 turns
-// 	-  Skip - immediately end your turn without drawing( need 2 skip cards to end attack since it's 2 turns)
-// 	-  Shuffle - Shuffle deck (reorder deck cards remaining in random order)
-//shuffle(deck);
-//loop to generate cards and add to the deck
-// 	-  The Deck of cards (needs to be a button when pressed draws a card and then gives option to end turn after viewing drawn card
-
-
-
-
 //================================================//
 //=================Game Logic=====================//
 //================================================//
@@ -184,6 +157,8 @@ const beginGame = () => {
     deck = emptyArr3;
     //Reset discard array to []
     discard = emptyArr4;
+    let resetCount = 0;
+    turnCounter = resetCount;
     generateDeck();
 // shuffle deck
     shuffle(deck);
@@ -193,7 +168,7 @@ const beginGame = () => {
     exploKitt();
     player1 = true//Ensures starting player is player 1
     startGameOverlay.classList.remove('show');
-    applyTurnOverlay();
+    // applyTurnOverlay();
     console.log('deck')
     console.log(deck);
     console.log('player 1 cards');
@@ -201,9 +176,7 @@ const beginGame = () => {
     console.log('player 2 cards');
     console.log(player2Hand)  
 }
-
 //==============Which Players turn ===============//
-
 //whos turn is it
 function whosTurn() {
     turnCounter++;
@@ -225,7 +198,7 @@ function removeTurnOverlay () {
 //removes both players hands from DOM so they can be swapped and added back 
 function applyTurnOverlay () {
     // setActive();
-    if(currentActive.length > 0){
+    // if(currentActive.length > 0){
     swapTurnsOverlay.classList.add('show');
     for(let i = 0; i < currentActive.length; i++){
         let act = document.querySelector('.card')
@@ -235,9 +208,9 @@ function applyTurnOverlay () {
         let act2 = document.querySelector('.card')
         act2.remove();   
     }
-    } else {
-        swapTurnsOverlay.classList.add('show');
-    }
+    // } else {
+        // swapTurnsOverlay.classList.add('show');
+    // }
 }
 const showCards = () => {
     setActive();
@@ -258,17 +231,13 @@ const showCards = () => {
     //remove overlay
     removeTurnOverlay();
 }
-
-
 //================================================//
 //============Additional Functions================//
 //================================================//
-
 //Removes start over lay and adds card protect overlay...can be built into other function...needed to start
 const startGame = () => {
     startGameOverlay.classList.add('show');
 }
-
 //adapted from https://medium.com/@joshfoster_14132/best-javascript-shuffle-algorithm-c2c8057a3bc1
 //Fisher-Yates Shuffle
 function shuffle(x) {
@@ -322,7 +291,6 @@ function chooseCard(){
     //remove from players hand array 
     currentActive.splice(index, 1)
     //build the div, name and append
-    
     let cardDiv = document.createElement('div');
     cardDiv.setAttribute('class', 'discardedCard');
     cardDiv.innerText = `${discard[0].name}`
@@ -352,14 +320,14 @@ function chooseCard(){
         whosTurn();
     }
 }
-
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
 // on draw card end turn and swap player turn
 //if draw card remove card from deck, add to player hand
 const drawCard = () => {
-    // setActive();
+    setActive();
     currentActive.unshift(deck[0]);
+//Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
     if(deck[0].name === 'Exploding Kitten'){
         exploKittyOverlay.classList.add('show');
     } else {
@@ -369,26 +337,27 @@ const drawCard = () => {
         cardDiv.innerText = `${currentActive[0].name}`
         activeCards.appendChild(cardDiv);
         deck.splice(0,1);
-        console.log(deck);
-        console.log(currentActive);
     }   
-    applyTurnOverlay();
     whosTurn();
-    //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
+    applyTurnOverlay();   
 }
+//================================================//
+//===================End Game=====================//
+//================================================//
+//If exploding kitten card is drawn, then pay defuse card, or game over
+//show via exploding kitten giant card with button to defuse (if in players hand) or with end game button that declares winner by moving to game over overlay
+// - Game over page overlay has restart button
 const endGame = () => {
-        exploKittyOverlay.classList.remove('show')
-        gameOverOverlay.classList.add('show');
-        if(turnCounter % 2 === 0){
-            winnerText.innerText = 'Player 1 is the winner!!'
-        } else {
-            winnerText.innerText = 'Player 2 is the winner!!'
-        }
-        
-        
+    removeTurnOverlay();
+    exploKittyOverlay.classList.remove('show')
+    gameOverOverlay.classList.add('show');
+    if(turnCounter % 2 === 0){
+        winnerText.innerText = 'Player 1 is the winner!!'
+    } else {
+        winnerText.innerText = 'Player 2 is the winner!!'
+    }
 };
 const defuseKitten = () => {
-    console.log(currentActive);
     for(let i = 0; i < currentActive.length - 1; i++){
         if(currentActive[i].name === 'Defuse'){
             //remove explodykitten from deck 
@@ -398,50 +367,26 @@ const defuseKitten = () => {
             //push defuse card to discard deck
             discard.splice(0, 0, currentActive[i])
             //Remove the defuse card
-            currentActive[i].remove();
-            // currentActive.removeChild(currentActive[i])
-            // // Remove clicked card from DOM and find id of removed card
-            // this.parentNode.removeChild(this)
-            // //Add to 0 index of discard array
-            // discard.splice(0, 0, currentActive[i])
-            //remove from players hand array 
-            // currentActive.splice(i, 1)
-            // //build the div, name and append
-            // let cardDiv = document.createElement('div');
-            // cardDiv.setAttribute('class', 'discardedCard');
-            // cardDiv.innerText = `${discard[0].name}`
-            // discardDeck.appendChild(cardDiv);
-            console.log(currentActive);
-            console.log(discardDeck);
-            console.log(discard);
-            exploKittyOverlay.classList.remove('show');
-            // break;
+            currentActive.splice(i, 1);
+            currentActive.splice(0,1);
+            //build the div, name and append
+            let cardDiv = document.createElement('div');
+            cardDiv.setAttribute('class', 'discardedCard');
+            cardDiv.innerText = `${currentActive[i].name}`
+            discardDeck.appendChild(cardDiv);
+            break;
         } 
     }
+    exploKittyOverlay.classList.remove('show');
 }
-
-
-
-//================================================//
-//===================End Game=====================//
-//================================================//
-//If exploding kitten card is drawn, then pay defuse card, or game over
-//show via exploding kitten giant card with button to defuse (if in players hand) or with end game button that declares winner by moving to game over overlay
-// - Game over page overlay has restart button
-
-
-
-
-
-
 //================================================//
 //=============Buttony button=====================//
 //================================================//
 function resetGame () {
     gameOverOverlay.classList.remove('show');
     startGame();
+    gamePlay();
 }
-
 // - rules/carousel buttons
 rulesButton.addEventListener('click', openCarousel);
 backButton.addEventListener('click', closeCarousel);

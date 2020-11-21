@@ -28,40 +28,37 @@ h2 {
     box-shadow: 5px 5px 20px 5px black;
 }
 .decks{
-    margin: 10%;
+    margin: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-content: space-around;
-   
-
 }
 .card-deck{
-    /* display: flex; */
     width: 250px;
     height: 350px;
     background-color: #1b1b1b;
     border-radius: 8px;
     box-shadow: 5px 5px 20px 5px black;
-    
+    margin: 50px;
 }
 #discard-deck{
     background-color: white;
     border: 1px solid black;
-    
 }
 #play-deck{
     background-color: #1b1b1b;
     cursor: pointer;
 }
 #play-deck img{
-    width: 250px;
+    display: flex;
+    width: 100%;
     height: 350px;
+    max-width: 250px;
     border-radius: 8px;
 }
 .card{
     box-shadow: 5px 5px 20px 5px black;
-
 }
 #inactive-cards{
     display: flex;
@@ -95,8 +92,6 @@ h2 {
     border-top-right-radius: 8px;
     cursor: pointer;
 }
-
-
 /* Game over man, game over */
 .gameOver{
     display: none;
@@ -286,6 +281,7 @@ h2 {
     color: white;
     margin: 35px;
     font-size: x-large;
+    
   }
   .carousel.show{
     display: block;
