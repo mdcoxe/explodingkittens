@@ -380,7 +380,7 @@ const endGame = () => {
     }
 };
 const defuseKitten = () => {
-    for(let i = 0; i < currentActive.length - 1; i++){
+    for(let i = 0; i < currentActive.length; i++){
         if(currentActive[i].name === 'Defuse'){
             //remove explodykitten from deck
             deck.splice(0,1);
@@ -390,7 +390,7 @@ const defuseKitten = () => {
             discard.splice(0, 0, currentActive[i])
             //Remove the defuse card
             currentActive.splice(i, 1);
-            currentActive.splice(0,1);
+            // currentActive.splice(0,1);
             //build the div, name and append
             let cardDiv = document.createElement('div');
             cardDiv.setAttribute('class', 'discardedCard');
