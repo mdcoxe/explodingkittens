@@ -28,8 +28,8 @@ const swapText = document.querySelector('.New-player-turn-text');
 //================================================//
 //=============== Global Variables================//
 //================================================//
-let player1; //odds
-let player2; //evens
+let player1; 
+let player2; 
 let turnCounter = 0;
 let currentActive;
 let currentInActive;
@@ -229,7 +229,9 @@ const showCards = () => {
         inactiveCards.appendChild(cardDiv);
     }
     //remove overlay
+    xplodKat();
     removeTurnOverlay();
+    
 }
 //================================================//
 //============Additional Functions================//
@@ -237,6 +239,14 @@ const showCards = () => {
 //Removes start over lay and adds card protect overlay...can be built into other function...needed to start
 const startGame = () => {
     startGameOverlay.classList.add('show');
+}
+
+const xplodKat = () => {
+    for(i =0; i < currentActive.length; i++){
+        if(currentActive[i].name === 'Exploding Kitten'){
+            exploKittyOverlay.classList.add('show');
+        }
+    }
 }
 //adapted from https://medium.com/@joshfoster_14132/best-javascript-shuffle-algorithm-c2c8057a3bc1
 //Fisher-Yates Shuffle
@@ -272,7 +282,7 @@ function dealCards() {
 }
 //add in exploding kitten randomly into the deck
 function exploKitt() {
-const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1')
+const explodingKitten = new Card ('Exploding Kitten', 'explodyKit1','images/explodingkittencard.png')
         deck.push(explodingKitten);
         shuffle(deck);
 }
@@ -313,9 +323,11 @@ function chooseCard(){
         if(player1 === true){
             player1Hand.push(deck[0])
             player1Hand.push(deck[1])
+            deck.splice(0, 2);
         } else{
             player2Hand.push(deck[0])
             player2Hand.push(deck[1])
+            deck.splice(0, 2);
         }
         setActive();
         // attackOppP();
@@ -337,9 +349,9 @@ function chooseCard(){
 const drawCard = () => {
     setActive();
     //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
-    if(deck[0].name === 'Exploding Kitten'){
-        exploKittyOverlay.classList.add('show');
-    } else {
+    // if(deck[0].name === 'Exploding Kitten'){
+    //     exploKittyOverlay.classList.add('show');
+    // } else {
         currentActive.unshift(deck[0]);
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
@@ -347,7 +359,7 @@ const drawCard = () => {
         cardDiv.innerText = `${currentActive[0].name}`
         activeCards.appendChild(cardDiv);
         deck.splice(0,1);
-    }   
+    // }   
     whosTurn();
     applyTurnOverlay();   
 }
@@ -370,7 +382,7 @@ const endGame = () => {
 const defuseKitten = () => {
     for(let i = 0; i < currentActive.length - 1; i++){
         if(currentActive[i].name === 'Defuse'){
-            //remove explodykitten from deck 
+            //remove explodykitten from deck
             deck.splice(0,1);
             // Reinsert kitten randomly
             exploKitt();
@@ -385,12 +397,18 @@ const defuseKitten = () => {
             cardDiv.innerText = `${discard[0].name}`
             discardDeck.appendChild(cardDiv);
             break;
+            
         } 
+        if(currentActive[i].name === 'Exploding Kitten'){
+            currentActive.splice(i, 1);
+        }
     }  if(discard[0].name != 'Defuse'){
         endGame();
     } else {
         exploKittyOverlay.classList.remove('show');
     }
+    whosTurn();
+    applyTurnOverlay();
 }
 //================================================//
 //=============Buttony button=====================//
