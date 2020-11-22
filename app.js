@@ -229,7 +229,7 @@ const showCards = () => {
         inactiveCards.appendChild(cardDiv);
     }
     //remove overlay
-    xplodKat();
+    // xplodKat();
     removeTurnOverlay();
     
 }
@@ -241,13 +241,13 @@ const startGame = () => {
     startGameOverlay.classList.add('show');
 }
 
-const xplodKat = () => {
-    for(i =0; i < currentActive.length; i++){
-        if(currentActive[i].name === 'Exploding Kitten'){
-            exploKittyOverlay.classList.add('show');
-        }
-    }
-}
+// const xplodKat = () => {
+//     for(i =0; i < currentActive.length; i++){
+//         if(currentActive[i].name === 'Exploding Kitten'){
+//             exploKittyOverlay.classList.add('show');
+//         }
+//     }
+// }
 //adapted from https://medium.com/@joshfoster_14132/best-javascript-shuffle-algorithm-c2c8057a3bc1
 //Fisher-Yates Shuffle
 function shuffle(x) {
@@ -319,16 +319,16 @@ function chooseCard(){
         whosTurn();
     } else if (discard[0].name === 'Attack'){
         // whosTurn();
-        whosTurn();
-        if(player1 === true){
-            player1Hand.push(deck[0])
-            player1Hand.push(deck[1])
-            deck.splice(0, 2);
-        } else{
-            player2Hand.push(deck[0])
-            player2Hand.push(deck[1])
-            deck.splice(0, 2);
-        }
+        // whosTurn();
+        // if(player1 === true){
+        //     player1Hand.push(deck[0])
+        //     player1Hand.push(deck[1])
+        //     deck.splice(0, 2);
+        // } else{
+        //     player2Hand.push(deck[0])
+        //     player2Hand.push(deck[1])
+        //     deck.splice(0, 2);
+        // }
         setActive();
         // attackOppP();
         applyTurnOverlay();
@@ -336,7 +336,7 @@ function chooseCard(){
         // drawCard();
         // drawCard();
         
-       showCards();
+        whosTurn();
     }
 }
 // const attackOppP = () => {
@@ -349,9 +349,9 @@ function chooseCard(){
 const drawCard = () => {
     setActive();
     //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
-    // if(deck[0].name === 'Exploding Kitten'){
-    //     exploKittyOverlay.classList.add('show');
-    // } else {
+    if(deck[0].name === 'Exploding Kitten'){
+        exploKittyOverlay.classList.add('show');
+    } else {
         currentActive.unshift(deck[0]);
         let cardDiv = document.createElement('div');
         cardDiv.setAttribute('class', 'card');
@@ -359,7 +359,7 @@ const drawCard = () => {
         cardDiv.innerText = `${currentActive[0].name}`
         activeCards.appendChild(cardDiv);
         deck.splice(0,1);
-    // }   
+    }   
     whosTurn();
     applyTurnOverlay();   
 }
@@ -399,25 +399,40 @@ const defuseKitten = () => {
             break;
             
         } 
-        if(currentActive[i].name === 'Exploding Kitten'){
-            currentActive.splice(i, 1);
-        }
-    }  if(discard[0].name != 'Defuse'){
+        // if(currentActive[i].name === 'Exploding Kitten'){
+        //     currentActive.splice(i, 1);
+        // }
+    }  
+    if(discard[0].name != 'Defuse'){
         endGame();
-    } else {
+    } //else {
         exploKittyOverlay.classList.remove('show');
-    }
-    whosTurn();
-    applyTurnOverlay();
+    // }
+    // whosTurn();
+    // applyTurnOverlay();
 }
 //================================================//
 //=============Buttony button=====================//
 //================================================//
 function resetGame () {
-    gameOverOverlay.classList.remove('show');
-    startGame();
-    gamePlay();
+    let emptyArr1 = [];
+    let emptyArr2 = [];
+    let emptyArr3 = [];
+    let emptyArr4 = [];
+    player1Hand = emptyArr1;
+    player2Hand = emptyArr2;
+    // reset deck array to []
+    deck = emptyArr3;
+    //Reset discard array to []
+    discard = emptyArr4;
+    let resetCount = 0;
+    turnCounter = resetCount;
+    window.location.reload();
+    // gameOverOverlay.classList.remove('show');
+    // startGame();
+    // gamePlay();
 }
+
 // - rules/carousel buttons
 rulesButton.addEventListener('click', openCarousel);
 backButton.addEventListener('click', closeCarousel);

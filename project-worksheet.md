@@ -15,10 +15,10 @@
 |Day 1| ~~Project worksheet~~  | In-Progress
 |Day 1| ~~Wireframes~~ / ~~Priority Matrix / Timeline~~ | Complete
 |Day 2| ~~Flesh out HTML/CSS frame~~ / ~~PseudoCode~~ / ~~Build card class / add cards & Players~~ | Complete
-|Day 3| ~~Build game logic and connect to DOM ~~ | Continued on
+|Day 3| ~~Build game logic and connect to DOM~~ | Continued on
 |Day 4| ~~Game Logic cont. ~~| Complete
-|Day 5| Add in card functions and clean up gameplay / ~~Troubleshoot~~ / ~~MVP~~| Continued on
-|Day 6| Troubleshoot / CSS / MVP| | Incomplete
+|Day 5| ~~Add in card functions and clean up gameplay~~ / ~~Troubleshoot~~ / ~~MVP~~| Continued on
+|Day 6| ~~Troubleshoot / CSS / MVP~~ | Continued on
 |Day 7| Final Touches / Explode a kitten or 2 | Incomplete
 
 - Day 2 - Completed additional accomplishments
@@ -33,15 +33,16 @@
 	- Complete choose card function and track down the bug
 	- Finish building out the basic game functions 
 	- Able to make shuffle card and skip card work
--Day 5 - Completed
+- Day 5 - Completed
 	- didn't get the attack ard added in
 	- spent most of day troubleshooting through defuse and exploding kitten
 	- the game works, takes turns, draws a card, plays a card, when exploding kitten is drawn makes you defuse the card or end game and reset
--Day 6 
+- Day 6  - Completed
 	- Add in attack card
 	- Clean up the folder, move images
 	- Build player icon so everyone knows whose cards are showing
-
+- Day 7 
+	- Troubleshooting the Exploding Kitten.  After getting the attack card to work it cuase me to have to move the exploding kitten code out of the drawCard funtion and put into the showCard funtion so that it reads when the players hand is reveiled.  This is causing a bug where even with defuse cards in hand it ends game and declases wrong player winner.
 
 ## Project Description
 
