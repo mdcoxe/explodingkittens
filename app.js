@@ -33,6 +33,8 @@ let player2; //evens
 let turnCounter = 0;
 let currentActive;
 let currentInActive;
+let attackedPlayer;
+let attackCount = 0;
 //=============Arrays===============//
 let player1Hand = [];
 let player2Hand = [];
@@ -289,8 +291,6 @@ function chooseCard(){
     //remove from players hand array 
     currentActive.splice(index, 1)
     //build the div, name and append
-   
-
     let cardDiv = document.createElement('div');
     cardDiv.setAttribute('class', 'discardedCard');
     cardDiv.innerText = `${discard[0].name}`
@@ -307,21 +307,36 @@ function chooseCard(){
         setActive();
         applyTurnOverlay();
         whosTurn();
-    }// else if (discard[0].name === 'Attack'){
-    //     setActive();
-    //     // attackOppP();
-    //     applyTurnOverlay();
-    //     whosTurn();
-    // }
+    } else if (discard[0].name === 'Attack'){
+        // whosTurn();
+        whosTurn();
+        if(player1 === true){
+            player1Hand.push(deck[0])
+            player1Hand.push(deck[1])
+        } else{
+            player2Hand.push(deck[0])
+            player2Hand.push(deck[1])
+        }
+        setActive();
+        // attackOppP();
+        applyTurnOverlay();
+        
+        // drawCard();
+        // drawCard();
+        
+       showCards();
+    }
 }
+// const attackOppP = () => {
+//     currentInActive.push(deck)
+// }
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
 // on draw card end turn and swap player turn
 //if draw card remove card from deck, add to player hand
 const drawCard = () => {
     setActive();
-    
-//Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
+    //Add in if statement that will stop gameplay and alert exploding Kitten has been drawn
     if(deck[0].name === 'Exploding Kitten'){
         exploKittyOverlay.classList.add('show');
     } else {
@@ -407,3 +422,6 @@ gameOverButton.addEventListener('click', endGame);
 //================================================//
 startGame();
 gamePlay();
+// applyTurnOverlay();
+// setActive();
+// showCards();

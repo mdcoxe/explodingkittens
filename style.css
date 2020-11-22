@@ -39,9 +39,9 @@ h2 {
     height: 50px;
     border-radius: 6px;
     border: 1px solid black;
-   
     text-align: center;
-    vertical-align: middle;
+    padding-top: 20px;
+    padding-bottom: 0;
     box-shadow: 5px 5px 20px 5px black;
     font-size: large;
 }
