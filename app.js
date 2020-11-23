@@ -1,16 +1,16 @@
 //================================================//
 //=============== Cached DOM Nodes ===============//
 //================================================//
-const startButton = document.getElementById('startGameButton');//e listener added
-const rulesButton = document.getElementById('showRulesButton');//e listener added
-const resetButton = document.getElementById('resetButton');//e listener added
-const backButton = document.getElementById('backButton');//e listener added
-const showButton = document.getElementById('showButton');//e listener added
+const startButton = document.getElementById('startGameButton');
+const rulesButton = document.getElementById('showRulesButton');
+const resetButton = document.getElementById('resetButton');
+const backButton = document.getElementById('backButton');
+const showButton = document.getElementById('showButton');
 const defuseButton = document.getElementById('defuseButton');
 const gameOverButton = document.getElementById('gameOverButton');
 const winnerText = document.querySelector('.gameOver-text');
-const carouselNext = document.getElementById('carousel-next');//e listener added
-const carouselPrevious = document.getElementById('carousel-previous');//e listener added
+const carouselNext = document.getElementById('carousel-next');
+const carouselPrevious = document.getElementById('carousel-previous');
 const carouselImage = document.querySelector('.carousel img');
 const carouselText = document.querySelector('.carouselText');
 const carousel = document.querySelector('.carousel');
@@ -20,10 +20,9 @@ const swapTurnsOverlay = document.getElementById('new-player-turn');
 const exploKittyOverlay = document.getElementById('explo-kitty');
 const activeCards = document.getElementById('active-cards');
 const inactiveCards = document.getElementById('inactive-cards');
-const deckButton = document.getElementById('play-deck');//e listener added
+const deckButton = document.getElementById('play-deck');
 const discardDeck = document.getElementById('discard-deck');
 const card = document.querySelector('.card');
-
 const swapText = document.querySelector('.New-player-turn-text');
 //================================================//
 //=============== Global Variables================//
@@ -33,8 +32,8 @@ let player2;
 let turnCounter = 0;
 let currentActive;
 let currentInActive;
-let attackedPlayer;
-let attackCount = 0;
+// let attackedPlayer;
+// let attackCount = 0;
 //=============Arrays===============//
 let player1Hand = [];
 let player2Hand = [];
@@ -50,11 +49,9 @@ const setActive= () =>{
     }
 }
 const gamePlay = () => {
-    // turnCounter++;
     applyTurnOverlay();
     setActive();
     showCards();
-    // whosTurn();   
 }
 //================================================//
 //==========Build the ruless carousel ============//
@@ -75,7 +72,7 @@ const rulesText = [
     'The basics, click on a card to play, click on the deck to draw a card.  Drawing a card ends your turn...don\'t die!',
     'The Exploding Kitten - This will hurt you more than it will hurt me...avoid at all costs..it will end you', 
     'Throw toys to the kitten, chances are it\'ll just lay in a box and watch you very suspiciously.  This card cancels the Exploding Kitten and puts it back into the deck randomly',
-    'You attacked, with your awesome back hair. End your turn without drawing a card, force your opponent to take 2 turns in a row',
+    'You attacked, with your awesome back hair. End your turn without drawing a card, force your opponent to take 2 turns in a row...I\m glitched at the moment...you\'re back hair is gonna have to wait.',
     'Shuffles deck and ends turn by drawing a card...nerd speak...using the Fisher-Yates Shuffle',
     'You live to die another day, ends your turn without drawing a card'
 ]; 
@@ -229,7 +226,6 @@ const showCards = () => {
         inactiveCards.appendChild(cardDiv);
     }
     //remove overlay
-    // xplodKat();
     removeTurnOverlay();
     
 }
@@ -240,7 +236,7 @@ const showCards = () => {
 const startGame = () => {
     startGameOverlay.classList.add('show');
 }
-
+//Built for attack card functionality
 // const xplodKat = () => {
 //     for(i =0; i < currentActive.length; i++){
 //         if(currentActive[i].name === 'Exploding Kitten'){
@@ -248,6 +244,7 @@ const startGame = () => {
 //         }
 //     }
 // }
+
 //adapted from https://medium.com/@joshfoster_14132/best-javascript-shuffle-algorithm-c2c8057a3bc1
 //Fisher-Yates Shuffle
 function shuffle(x) {
@@ -318,9 +315,14 @@ function chooseCard(){
         applyTurnOverlay();
         whosTurn();
     } else if (discard[0].name === 'Attack'){
-        // whosTurn();
-        // whosTurn();
-        // if(player1 === true){
+        setActive();
+        // attackOppP();
+        applyTurnOverlay();
+        whosTurn();
+    }
+}
+// const attackOppP = () => {
+//      if(player1 === true){
         //     player1Hand.push(deck[0])
         //     player1Hand.push(deck[1])
         //     deck.splice(0, 2);
@@ -329,18 +331,6 @@ function chooseCard(){
         //     player2Hand.push(deck[1])
         //     deck.splice(0, 2);
         // }
-        setActive();
-        // attackOppP();
-        applyTurnOverlay();
-        
-        // drawCard();
-        // drawCard();
-        
-        whosTurn();
-    }
-}
-// const attackOppP = () => {
-//     currentInActive.push(deck)
 // }
 //Draw card (or skip function depending on card played)=====ends turn
 //-----Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards,
@@ -390,7 +380,6 @@ const defuseKitten = () => {
             discard.splice(0, 0, currentActive[i])
             //Remove the defuse card
             currentActive.splice(i, 1);
-            // currentActive.splice(0,1);
             //build the div, name and append
             let cardDiv = document.createElement('div');
             cardDiv.setAttribute('class', 'discardedCard');
@@ -399,17 +388,11 @@ const defuseKitten = () => {
             break;
             
         } 
-        // if(currentActive[i].name === 'Exploding Kitten'){
-        //     currentActive.splice(i, 1);
-        // }
     }  
     if(discard[0].name != 'Defuse'){
         endGame();
-    } //else {
+    }
         exploKittyOverlay.classList.remove('show');
-    // }
-    // whosTurn();
-    // applyTurnOverlay();
 }
 //================================================//
 //=============Buttony button=====================//
@@ -428,9 +411,6 @@ function resetGame () {
     let resetCount = 0;
     turnCounter = resetCount;
     window.location.reload();
-    // gameOverOverlay.classList.remove('show');
-    // startGame();
-    // gamePlay();
 }
 
 // - rules/carousel buttons
@@ -455,6 +435,3 @@ gameOverButton.addEventListener('click', endGame);
 //================================================//
 startGame();
 gamePlay();
-// applyTurnOverlay();
-// setActive();
-// showCards();
