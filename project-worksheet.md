@@ -19,7 +19,7 @@
 |Day 4| ~~Game Logic cont. ~~| Complete
 |Day 5| ~~Add in card functions and clean up gameplay~~ / ~~Troubleshoot~~ / ~~MVP~~| Continued on
 |Day 6| ~~Troubleshoot / CSS / MVP~~ | Continued on
-|Day 7| Final Touches / Explode a kitten or 2 | Incomplete
+|Day 7| ~~Final Touches / Explode a kitten or 2~~ | Complete
 
 - Day 2 - Completed additional accomplishments
 	- Built and styled rules carousel
@@ -41,8 +41,8 @@
 	- Add in attack card
 	- Clean up the folder, move images
 	- Build player icon so everyone knows whose cards are showing
-- Day 7 
-	- Troubleshooting the Exploding Kitten.  After getting the attack card to work it cuase me to have to move the exploding kitten code out of the drawCard funtion and put into the showCard funtion so that it reads when the players hand is reveiled.  This is causing a bug where even with defuse cards in hand it ends game and declases wrong player winner.
+- Day 7 - Complete
+	- Ended up reverting attack card back to just a skip with a different image while I try and troubleshoot.  The base game works except one situation that may come up in playing it.
 
 ## Project Description
 
@@ -126,6 +126,7 @@ Added in page 2 to start layout what I think I need for html and css to have a g
 - Fine tune the CSS
 	Add in images where appropriate, like every card, card backs)
 - Add in additional action cards
+	- Attack
 	- Matched pairs
 	- See the future
 	- nope - stops any action card except exploding kitten and defuse (plays from opposing players hand on current players turn)
@@ -140,7 +141,7 @@ Added in page 2 to start layout what I think I need for html and css to have a g
 - Draw card / Adds deckArray[0] to active players hand and ends turn, blanks out page (pulls up protect cards overlay, swaps hands and puts button on screen for opposing payer to click to reveil cards, 
 - play card - on click of a card remove from hand and place on discard pile then do action of card - not required function...can draw instead and end turn
 ### Card Functions
-- Attack - End turn without drawing card, skips next turn(build skip function first and reference in this function??
+- Attack - End turn without drawing card, skips next turn(build skip function first and reference in this function??...still troubleshooting how to proceed.
 - Exploding Kitten - End game unless player has Defuse card...must play or game over
 - Defuse card -  adds exploding kitten back intto deck in random spot (does not reshuffle deck) can only be played on exploding kitten
 - Skip - Ends turn immediately without drawing new card
