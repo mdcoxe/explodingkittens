@@ -1,3 +1,18 @@
+//To anyone who may review this code,
+//This project is the first solo project assigned for week 4 at General Assembly's Software Engineering Immersive bootcamp. 
+//The projects requirements:
+//----2 player game, either player vs player or player vs computer
+//----A win state
+//----A project work-sheet --the markdown document attach in github.  
+//----Don't choose a card game (<---I obviously didn't listen)
+//My take aways from the project...
+//I learned a lot over the course of the past week working on this project.  I learned some strengths, some weaknesses and I learned to plan out my work, majority of my project ws complete in the first half of the week, the remaining time was spent troubleshooting and adding in new features.  Over the week, I got stuck in 2 areas, the first was getting the chooseCard function to allow me to actually click on a card and the correct card be chosen and placed on the discard pile, the second was expanding the attack function.  I'm very proud of the chooseCard function and that I was able to get it to work.
+//The attack function is one I plan to work on over the next few weeks of the course to figure out the best route to attack the issue.  The main issue is having to move the where the exploding kitten modal is placed to be ran.  Currently it is incorporated into the draw function as drawing a card is the end of the players turn.  This location doesn't work in conjunction with the attack card function since it doesn't provide an answer for the exploding kitten being placed into the opposing players hand (where it would not be checked for).  
+//A few other pieces of the puzzle I am still looking into is how to integrate the pairing of cards to work like the traditional game.  THis initial build of the game the pair cards and a few other card types were not included due to the time frame and the need to scale back the project.  These are possible routes for me to expand the game further.
+//To sum it up, this was a great project for me to put the concepts I learned in class to great use and to build confidence in programming a usable application.
+//If you see anything that you have questions about or would like to discuss my code further, please reach out to me.  
+//Michael Coxe
+//mcoxe@me.com
 //================================================//
 //=============== Cached DOM Nodes ===============//
 //================================================//
@@ -290,7 +305,7 @@ function chooseCard(){
 //player can click either a card in hand to play
     setActive();   
     // Remove clicked card from DOM and find id of removed card
-    const currVal = this.parentNode.removeChild(this).id
+    const currVal = this.parentNode.removeChild(this).id//This line and the following were the 2 hardest lines for me to figure out.  I'm very please with how they worked out.
     // find index using id
     let index = currentActive.findIndex(x => x.id === currVal);
     //Add to 0 index of discard array

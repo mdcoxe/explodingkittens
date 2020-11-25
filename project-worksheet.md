@@ -194,16 +194,10 @@ function whosTurn() {
 Brief Description of code snippet I'm proud of...
 
 ```
-//Shuffle randomly swap values of 2 different cards in arrray for 500 permutations
-function shuffle(x) {
-    for(let i = 0; i < 500; i++){
-        let arr1 = Math.floor((Math.random() * x.length));
-        let arr2 = Math.floor((Math.random() * x.length));
-        let arr3 = x[arr1]
-        x[arr1] = x[arr2];
-        x[arr2] = arr3;
-    }
-}
+   // Remove clicked card from DOM and find id of removed card
+    const currVal = this.parentNode.removeChild(this).id
+    // find index using id
+    let index = currentActive.findIndex(x => x.id === currVal);
 ```
 
 ## Issues and Resolutions
